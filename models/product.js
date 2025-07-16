@@ -33,4 +33,11 @@ module.exports=class Product {
         products[index].imageUrl = product.imageUrl;
         products[index].description = product.description;
     }
+
+    static DeleteById(id) {
+        const index = products.findIndex(i=> i.id === id);
+        products.splice(index,1);
+    }
 }
+
+
