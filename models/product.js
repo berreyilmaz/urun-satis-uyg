@@ -1,15 +1,18 @@
-const products = [{id:"13213", name:'Iphone 6',price:'10000', imageUrl:'1.jpeg',description:'iyi telefon'},
-    {id:"13214", name:'Iphone 11',price:'30000', imageUrl:'2.jpeg',description:'daha iyi telefon'},
-    {id:"13215", name:'Iphone 14 pro',price:'80000', imageUrl:'3.jpeg',description:'çok daha iyi telefon'}
+const products = [{id:"13213", name:'Iphone 6',price:'10000', imageUrl:'1.jpeg',description:'iyi telefon', categoryid:"1"},
+    {id:"13214", name:'Iphone 11',price:'30000', imageUrl:'2.jpeg',description:'daha iyi telefon', categoryid:"1"},
+    {id:"13215", name:'Iphone 14 pro',price:'80000', imageUrl:'3.jpeg',description:'çok daha iyi telefon', categoryid:"1"},
+    {id:"13216", name:'laptop',price:'80000', imageUrl:'3.jpeg',description:'çok daha iyi bilgisayar', categoryid:"2"},
+    {id:"13217", name:'buzdolabı',price:'80000', imageUrl:'3.jpeg',description:'çok daha iyi', categoryid:"3"}
 ];
 
 module.exports=class Product {
-    constructor(name, price, imageUrl, description) {
+    constructor(name, price, imageUrl, description, categoryid) {
         this.id = (Math.floor(Math.random()*99999)+1).toString();
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
         this.description = description;
+        this.categoryid = categoryid;
     }
 
     saveProduct(){
@@ -21,8 +24,12 @@ module.exports=class Product {
     }
 
     static getById(id) {
-        const product = products.find(i => i.id === id);
-        return product;
+        return products.find(i => i.id === id);
+    }
+
+    static getProductsByCategoryId(categoryid) {
+        return products.filter(i=> i.categoryid == categoryid);
+
     }
 
     static Update(product) {
@@ -32,6 +39,7 @@ module.exports=class Product {
         products[index].price = product.price;
         products[index].imageUrl = product.imageUrl;
         products[index].description = product.description;
+        products[index].categoryid = product.categoryid;
     }
 
     static DeleteById(id) {

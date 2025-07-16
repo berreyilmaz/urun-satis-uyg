@@ -1,13 +1,16 @@
 const Product = require('../models/product');
 const { patch } = require('../routes/shop');
+const Category = require('../models/category');
 
 exports.getIndex = (req,res,next)=>{
 
     const products = Product.getAll();
+    const categories = Category.getAll();
     res.render('shop/index', 
         {
             title: 'Shopping', 
             products: products,
+            categories: categories,
             path:'/'
         });
 }
@@ -16,12 +19,31 @@ exports.getIndex = (req,res,next)=>{
 exports.getProducts = (req,res,next)=>{
 
     const products = Product.getAll();
+    const categories = Category.getAll();
     res.render('shop/products', 
         {
             title: 'Products', 
             products: products,
+            categories: categories,
             path:'/products'
         });
+}
+
+
+exports.getProductsByCategoryId = (req,res,next) => {
+    const categoryid = req.params.categoryid;
+    const products = Product.getProductsByCategoryId(categoryid);
+    const categories = Category.getAll();
+
+    res.render('shop/products', 
+        {
+            title: 'Products', 
+            products: products,
+            categories: categories,
+            selectedCategory: categoryid,
+            path:'/products'
+        });
+
 }
 
 
