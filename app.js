@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use('/admin', adminRoutes);
 app.use(userRoutes);
 
+
 app.use(errorController.get404Page);
 app.listen(3000, () => {
     console.log('listening on port 3000');
