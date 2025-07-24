@@ -1,5 +1,4 @@
 const Product = require('../models/product');
-const { patch } = require('../routes/shop');
 const Category = require('../models/category');
 
 exports.getIndex = (req,res,next)=>{
@@ -57,23 +56,20 @@ exports.getProductsByCategoryId = (req,res,next) => {
 
 
 exports.getProduct = (req,res,next)=>{
-    const product = Product.getById(req.params.productid);
-
-    res.render('shop/product-detail',{
-        title: product.name,
-        product: product,
-        path: '/products'
-    });
-}
-
-
-exports.getProductsDetails = (req,res,next)=>{
-    res.render('shop/details', 
-        {
-            title: 'Details', 
-            path:'/details'
+    Product.getById(req.params.productid)
+        .then((product) => {
+            res.render('shop/product-detail',{
+                title: product[0][0].name,
+                product: product[0][0],
+                path: '/products'
+            });
+        })
+        .catch((err) => {
+            console.log(err);
         });
 }
+
+
 
 exports.getCart = (req,res,next)=>{
     res.render('shop/cart', 
